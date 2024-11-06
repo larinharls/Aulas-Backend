@@ -14,6 +14,9 @@ app .use('/Login', login)
 const products = require('./routes/RouterProduct')
 app .use('/Products', products)
 
+const users = require('./routes/RouterUsers')
+app.use('/Users', users)
+
 // // CRIANDO UMA ROTA PARA A API
 // app.get('/home', (req, res) => {
 //   res.send('Hello World')
