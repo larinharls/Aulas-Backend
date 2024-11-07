@@ -1,48 +1,58 @@
+const UserModel = require('../models/UserModel')
+
 const UsersList = async (req, res, next) => {
-    try {
-        const List = [
+    try{
+        res.send([
             {
-                name:'Marcos',
-                id: 1,
-                email: 'Marcos@gmail.com',
-                password: 'marcos1234'
+              name:'Beatriz',
+              id:1,
+              email:'beatriz123@gmail.com',
+              senha:'1234'
             },
             {
-                name:'Paula',
-                id: 2,
-                email: 'Paula@hotmail.com',
-                password: 'paula@2024'
-            },
+              name:'Kaio',
+              id: 2,
+              email: 'kaiokaio@gmail.com',
+              senha: '42525'
+            }, 
             {
-                name:'Lucas',
-                id: 3,
-                email: 'Lucas@gmail.com',
-                password: 'lucas001'
+             name:'Isa',
+             id: 3,
+             email:'isa@gmail.com',
+             senha:'8282'
             }
-        ]
-    
-        res.send(
-            List
-        )
-    }catch (error){
-        res.send({
-            'sucess': false,
-            'error': `Erro na requisição: ${error}`
-        })
+          ])
+        }catch (error){
+          res.send({
+            'sucess':false,
+            'error': `Erro na requisicao ${error}`
+          })
     }
 }
-const UsersCreate = async(req,res,next)=>{
-    try {
-        const name=req.body.name
-        const email=req.body.email
-        const password=req.body.password
 
-        res.send({
+    const UsersCreate = async ( req, res, next ) => {
+        const name = req.body.name
+
+    try {
+        const firstname = req.body.firstname
+        const surname = req.body.surname
+        const email = req.body.email
+        const password = req.body.password
+
+        const user = await UserModel.create ({
+            firstname: firstname,
+            surname: surname,
+            email: email,
+            password: password
+        });
+        
+        res.status(201).send({
             'sucess': true,
             'message': 'Usuário cadastrado com sucesso'
         })
+
     }catch (error){
-        res.send({
+        res.status(400).send({
             'sucess': false,
             'error': `Erro na requisição: ${error}`
         })

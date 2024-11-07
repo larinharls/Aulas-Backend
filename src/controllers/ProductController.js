@@ -1,3 +1,5 @@
+const ProductModel = require('../models/ProductModel')
+
 const ProductList = async (req, res, next) => {
     try {
         const Lista = [
