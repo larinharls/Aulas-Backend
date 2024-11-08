@@ -1,4 +1,4 @@
-const UserModel = require('../models/UserModel')
+const userModel = require('../models/UserModel')
 
 const UsersList = async (req, res, next) => {
     try{
@@ -39,11 +39,16 @@ const UsersList = async (req, res, next) => {
         const email = req.body.email
         const password = req.body.password
 
-        const user = await UserModel.create ({
+        //CRIPTOGRAFANDO A SENHA DO USUÁRIO PARA SALVAR NO BANCO
+        const bcrypt = require('bcrypt')
+        const saltRound = 10
+        const hash = await bcrypt.hash(password, saltRound)
+
+        const user = await userModel.create ({
             firstname: firstname,
             surname: surname,
             email: email,
-            password: password
+            password: hash
         });
         
         res.status(201).send({
