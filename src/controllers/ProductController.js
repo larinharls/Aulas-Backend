@@ -23,6 +23,7 @@ const ProductList = async (req, res, next) => {
         res.send(
             Lista
         )
+
     }catch (error){
         res.send({
             'sucess': false,
@@ -32,18 +33,24 @@ const ProductList = async (req, res, next) => {
 }
 const ProductCreate = async(req,res,next)=>{
     try {
-        const name=req.body.name
-        const price=req.body.price
-        const description=req.body.description
+        const { name, price, description } = req.body;
 
+        if (!name || !price || !description) {
+            return res.status(400).send({
+            'sucess': false,
+            'message': 'Dados incompletos'
+        })
+    
+    }
         res.send({
-            'sucess': true,
+            'success': true,
             'message': 'Produto cadastrado com sucesso'
         })
-    }catch (error){
-        res.send({
-            'sucess': false,
-            'error': `Erro na requisição: ${error}`
+
+    } catch (error) {
+        res.status(500).send({
+            'success': false,
+            'error': `Erro na requisição: ${error.message}`
         })
     }
 }
